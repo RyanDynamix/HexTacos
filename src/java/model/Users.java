@@ -1,3 +1,4 @@
+
 package model;
 
 import java.io.Serializable;
@@ -10,7 +11,6 @@ public class Users implements Serializable{
     private String phone;
     private String address;
     private int roleID;
-    private boolean status;
     private int otp;
 
     public Users() {
@@ -24,18 +24,6 @@ public class Users implements Serializable{
         this.phone = phone;
         this.address = address;
         this.roleID = roleID;
-        this.status = true;
-    }
-
-    public Users(int userID, String fullName, String email, String password, String phone, String address, int roleID, boolean status) {
-        this.userID = userID;
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
-        this.roleID = roleID;
-        this.status = status;
     }
 
     public Users(int userID, String fullName, String email, String phone, String address, int roleID) {
@@ -45,25 +33,6 @@ public class Users implements Serializable{
         this.phone = phone;
         this.address = address;
         this.roleID = roleID;
-        this.status = true;
-    }
-    
-    public Users(int userID, String fullName, String email, String phone, String address, int roleID, boolean status) {
-        this.userID = userID;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.roleID = roleID;
-        this.status = status;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public int getOtp() {
@@ -132,7 +101,7 @@ public class Users implements Serializable{
 
     @Override
     public String toString() {
-        return "Users{" + "userID=" + userID + ", fullName=" + fullName + ", email=" + email + ", password=" + password + ", phone=" + phone + ", address=" + address + ", roleID=" + roleID + ", status=" + status + '}';
+        return "Users{" + "userID=" + userID + ", fullName=" + fullName + ", email=" + email + ", password=" + password + ", phone=" + phone + ", address=" + address + ", roleID=" + roleID + '}';
     }
 
 }

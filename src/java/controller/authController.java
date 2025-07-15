@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import model.Users;
 
-// Đường dẫn là /auth
+//Đường dẫn là /auth
 public class authController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -72,7 +72,7 @@ public class authController extends HttpServlet {
         //nếu account = null -> tai khoan mat khau ko dung -> set về lỗi -> trở lại login.jsp
 
         if (account == null) {
-//dang nhap that bai -> productControler để lấy dữ liệu hiển thị
+            //dang nhap that bai -> productControler để lấy dữ liệu hiển thị
             //khi này account = null; ko cho sài tính năng (limited access)
             session.setAttribute("account", account);
             request.setAttribute("notifyAuth", "failed");
@@ -115,14 +115,7 @@ public class authController extends HttpServlet {
                     encodedURL = response.encodeRedirectURL(targetURL);
                     response.sendRedirect(encodedURL);
                     break;
-                case 3: // Staff
-                    session.setAttribute("account", account);
-                    request.setAttribute("notifyAuth", "success");
-                    targetURL = "feedback"; // <-- Trang của nhân viên
-                    encodedURL = response.encodeRedirectURL(targetURL);
-                    response.sendRedirect(encodedURL);
-                    break;
-                case 4:                                 //Tài khoản bị block
+                case 3:                                 //Tài khoản bị block
                     //Thông báo cho khách hàng và chuyển lại trang đăng nhập
                     request.setAttribute("notifyAuth", "blocked");
                     request.getRequestDispatcher("auth.jsp").forward(request, response);
@@ -132,7 +125,8 @@ public class authController extends HttpServlet {
             }
         }
     }
-private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Cookie loginCookie = null;
         //Lấy cookies cho account muốn logout
         Cookie[] cookies = request.getCookies();

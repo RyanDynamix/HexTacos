@@ -649,74 +649,104 @@
                 </div>
 
             </div> <!-- content -->
-            <!--Q&A Box-->
-<div class="d-flex" style="width: 100%; margin-top: 32px;">
-    <div class="card"
-         style="width: 100%; max-width: 700px; border-radius: 12px; margin-left: 120px;">
-        <!-- Thanh tiêu đề "Feedback" thu gọn -->
-        <div class="card-header fw-bold fs-5 text-white px-3 py-2"
-             style="background-color: #6c757d; border-radius: 0.25rem 0.25rem 0 0; width:1250px">
-            Feedback
-        </div>
-
-        <div class="card-body"
-             style="background: #f8f9fa; border-radius: 0 0 12px 12px; padding: 24px 20px; width:1250px">
-            <hr>
-            <!-- Form đánh giá -->
-            <form action="feedback" method="POST" class="mb-4">
-                <input type="hidden" name="productID" value="${allDetailProduct.productID}">
-                <input type="hidden" name="userID" value="${sessionScope.account.userID}">
-                <div class="mb-3">
-                    <label for="note" class="form-label">Nội dung đánh giá:</label>
-                    <textarea name="note" class="form-control" rows="3" required placeholder="Viết đánh giá của bạn tại đây..."></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="rating" class="form-label">Chọn số sao:</label>
-                    <select name="rating" class="form-select" required>
-                        <option value="5">5 ★ - Rất tốt</option>
-                        <option value="4">4 ★ - Tốt</option>
-                        <option value="3">3 ★ - Bình thường</option>
-                        <option value="2">2 ★ - Kém</option>
-                        <option value="1">1 ★ - Rất tệ</option>
-                    </select>
-                </div>
-                <div class="mb-3 text-end">
-                    <button type="submit" class="btn text-white px-4 py-2"
-                            style="background-color: #6c757d; border-radius: 6px;">
-                        Gửi Đánh Giá
-                    </button>
-                </div>
-            </form>
-            <hr>
-            <!-- Danh sách đánh giá -->
-            <div id="questionsList" class="mb-3">
-                <c:forEach var="fb" items="${feedbackList}">
-                    <div class="question d-flex mb-3 align-items-start" style="gap: 16px;">
-                        <div class="avatar avatar-md avatar-text avatar-circle me-3"
-                             style="background: #e9ecef; min-width: 48px; height: 48px;
-                                    display: flex; align-items: center; justify-content: center;
-                                    border-radius: 50%; font-weight: bold; font-size: 1.1rem; color: #6c757d;">
-                            <span>U${fb.userID}</span>
-                        </div>
-                        <div class="info-user" style="flex: 1;">
-                            <div class="name-user fw-semibold" style="color: #495057;">User ID: ${fb.userID}</div>
-                            <div class="para-user" style="margin-bottom: 4px;">${fb.note}</div>
-                            <div class="time-user d-flex align-items-center gap-2"
-                                 style="font-size: 0.95rem; color: #848a94;">
-                                <div class="text text-grayscale">Đánh giá: ${fb.rating} ★</div>
-                                <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
-                                <div class="link link-xs" style="cursor: pointer;">Thích</div>
-                                <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
-                                <div class="link link-xs" style="cursor: pointer;">Trả lời</div>
-                            </div>
-                        </div>
+            <!--Q&A Box-->>
+            <div class="container mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        Hỏi & đáp
                     </div>
-                </c:forEach>
+                    <div class="card-body">
+                        <form id="qaForm">
+                            <div class="mb-3">
+                                <label for="userName" class="form-label">Tên của bạn</label>
+                                <input type="text" class="form-control" id="userName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="userQuestion" class="form-label">Câu hỏi của bạn</label>
+                                <textarea class="form-control" id="userQuestion" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Gửi Bình Luận</button>
+                            <hr>
+                            <div id="questionsList" class="mb-3">
+                                <div class="question">
+                                    <div class="avatar avatar-md avatar-text avatar-circle">
+                                        <div class="avatar-shape">
+                                            <span>NHQ</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-user">
+                                        <div class="name-user">Nguyễn Hữu Quang</div>
+                                        <div class="para-user">Samsung S24 Ultra 512 g, sau khi trừ khuyến mãi, giá mua khách thực trả là bao
+                                            nhiêu tiền?</div>
+                                        <div class="time-user align-items-center">
+                                            <div class="text text-grayscale">1 ngày trước</div>
+                                            <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
+                                            <div class="link link-xs">Thích</div>
+                                            <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
+                                            <div class="link link-xs" aria-controls="comment-reply-invalid">Trả lời</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="reply-qtv">
+                                    <div class="avatar avatar-md avatar-text avatar-circle">
+                                        <div class="avatar-shape">
+                                            <span>QTV</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-qtv" style="margin-left: 12px;">
+                                        <div class="name-qtv">QTV</div>
+                                        <div class="para-qtv">QTV reply</div>
+                                        <div class="time-qtv align-items-center">
+                                            <div class="text text-grayscale">1 ngày trước</div>
+                                            <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
+                                            <div class="link link-xs">Thích</div>
+                                            <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
+                                            <div class="link link-xs" aria-controls="comment-reply-invalid">Trả lời</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="question">
+                                    <div class="avatar avatar-md avatar-text avatar-circle">
+                                        <div class="avatar-shape">
+                                            <span>NHQ</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-user">
+                                        <div class="name-user">Nguyễn Hữu Quang</div>
+                                        <div class="para-user">Samsung S24 Ultra 512 g, sau khi trừ khuyến mãi, giá mua khách thực trả là bao
+                                            nhiêu tiền?</div>
+                                        <div class="time-user align-items-center">
+                                            <div class="text text-grayscale">1 ngày trước</div>
+                                            <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
+                                            <div class="link link-xs">Thích</div>
+                                            <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
+                                            <div class="link link-xs" aria-controls="comment-reply-invalid">Trả lời</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="reply-qtv">
+                                    <div class="avatar avatar-md avatar-text avatar-circle">
+                                        <div class="avatar-shape">
+                                            <span>QTV</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-qtv" style="margin-left: 12px;">
+                                        <div class="name-qtv">QTV</div>
+                                        <div class="para-qtv">QTV reply</div>
+                                        <div class="time-qtv align-items-center">
+                                            <div class="text text-grayscale">1 ngày trước</div>
+                                            <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
+                                            <div class="link link-xs">Thích</div>
+                                            <i class="fa-solid fa-circle" style="color: #848a94; font-size: 4px;"></i>
+                                            <div class="link link-xs" aria-controls="comment-reply-invalid">Trả lời</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-
             <hr style="margin-top: 50px; width: 100%;">
             <!-- Footer Start -->
             <div class="container contact">

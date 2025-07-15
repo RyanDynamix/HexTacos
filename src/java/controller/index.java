@@ -11,12 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import dal.ProductDAO;
-import dal.UserDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 import model.Products;
 
 /**
@@ -32,27 +30,17 @@ public class index extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO productDAO = new ProductDAO();
-        UserDAO userDAO = new UserDAO();
+        int product = new ProductDAO().TotalProduct();
+        String price = new ProductDAO().TotalOrderDetail();
+        int report = new ProductDAO().CountReport();
+        int order = new ProductDAO().CountOrder();
+        List<Products> listTop5 = new ProductDAO().listTop5();
         
-        // Get statistics for dashboard
-        int product = productDAO.TotalProduct();
-        String price = productDAO.TotalOrderDetail();
-        int userCount = userDAO.countTotalUsers();
-        int order = productDAO.CountOrder();
-        List<Products> listTop5 = productDAO.listTop5();
-        
-        // Get monthly revenue data for chart
-        Map<String, Double> monthlyRevenue = productDAO.getMonthlyRevenue();
-        
-        // Set attributes for the JSP
         request.setAttribute("product", product);
         request.setAttribute("price", price);
-        request.setAttribute("userCount", userCount);
+        request.setAttribute("report", report);
         request.setAttribute("order", order);
         request.setAttribute("listTop10", listTop5);
-        request.setAttribute("monthlyRevenue", monthlyRevenue);
-        
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
