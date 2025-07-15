@@ -115,6 +115,43 @@ CREATE TABLE Galleries (
 );
 --//////////////////////////////////////////////////////////////////
 --TRIGGER tự động update total money
+CREATE TRIGGER trg_UpdateTotalMoney
+ON OrderDetails
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    -- Xử lý INSERT và UPDATE
+    IF EXISTS (SELECT * FROM inserted)
+    BEGIN
+        -- Cập nhật totalMoney cho các đơn hàng bị ảnh hưởng
+        UPDATE Orders
+        SET totalMoney = (SELECT SUM(price * quantity)
+                          FROM OrderDetails
+                          WHERE OrderDetails.orderID = Orders.orderID)
+        WHERE Orders.orderID IN (SELECT DISTINCT orderID FROM inserted);
+    END
+
+    -- Xử lý DELETE
+    IF EXISTS (SELECT * FROM deleted)
+    BEGIN
+        -- Cập nhật totalMoney cho các đơn hàng bị ảnh hưởng
+        UPDATE Orders
+        SET totalMoney = (SELECT SUM(price * quantity)
+                          FROM OrderDetails
+                          WHERE OrderDetails.orderID = Orders.orderID)
+        WHERE Orders.orderID IN (SELECT DISTINCT orderID FROM deleted);
+    END
+END;
+
+--//////////////////////////////////////////////////////////////////
+CREATE TRIGGER trg_UpdateQuantity
+ON OrderDetails
+AFTER UPDATE
+AS
+BEGIN
+    DELETE FROM OrderDetails
+    WHERE ID IN (SELECT ID FROM inserted WHERE quantity = 0);
+END;
 
 
 --//////////////////////////////////////////////////////////////////
@@ -125,13 +162,11 @@ CREATE TABLE Galleries (
 -- Insert dữ liệu vào bảng Roles
 INSERT INTO Roles ([name]) VALUES ('admin');		--1
 INSERT INTO Roles ([name]) VALUES ('customer');		--2
-INSERT INTO Roles ([name]) VALUES ('staff');		--2
 
 -- Insert dữ liệu vào bảng Users
 INSERT INTO Users (fullName, email, password, phone, address, roleID)
 VALUES
   ('admin', 'admin@gmail.com', '12345', '0987654111', '123 Admin Street', 1),
-  ('staff', 'staff@gmail.com', '12345', '0987654112', '123 Staff Street', 5),
   ('customer', 'customer@gmail.com', '12345', '0987654222', '123 Customer Street', 2),
   (N'Nguyễn Văn A', 'nguyen.a@example.com', '6789', '0123456789', N'123 ABC Hà Nội', 2),  -- Vietnamese name and address
   (N'Trần Thị B', 'tran.thi.b@example.com', '6789', '0987654321', N'456 DEF Sài Gòn', 2),   -- Vietnamese name and address
@@ -181,7 +216,7 @@ VALUES ('Smartphones', N'High-performance mobile phones with advanced features.'
 -- Insert dữ liệu vào bảng Products
 INSERT INTO Products ([name], price, discount, quantity, created_at, updated_at, [description], thumbnail) 
 VALUES
-('OPPO Reno11 F 5G 8GB-256GB', 8490000, 7990000, 100, GETDATE(), GETDATE(), 'OPPO Reno11 F 5G 8GB-256GB', './img_svg/0_picProduct/Oppo/oppo-reno11-thumnail.jpg'),
+('OPPO Reno11 F 5G 8GB-256GB', 8490, 7990, 100, GETDATE(), GETDATE(), 'OPPO Reno11 F 5G 8GB-256GB', './img_svg/0_picProduct/Oppo/oppo-reno11-thumnail.jpg'),
 ('iPhone 11 Pro 256GB', 25000000, 20990000, 100, GETDATE(), GETDATE(), 'iPhone 11 Pro 256GB', './img_svg/0_picProduct/Iphone/11/pro_pro-max/iphone-11-pro-thumnail.jpg'),
 ('iPhone 11 Pro 512GB', 27900000, 23990000, 100, GETDATE(), GETDATE(), 'iPhone 11 Pro 512GB', './img_svg/0_picProduct/Iphone/11/pro_pro-max/iphone-11-pro-thumnail.jpg'),
 ('iPhone 11 64GB', 11990000, 8500000, 100, GETDATE(), GETDATE(), 'iPhone 11 64GB', './img_svg/0_picProduct/Iphone/11/iphone-11-thumnail.jpg'),
@@ -215,6 +250,9 @@ VALUES
 ('iPad mini 6 2021 8.3 inch WiFi 64GB', 13200000, 12800000, 100, GETDATE(), GETDATE(), 'iPad mini 6 2021 8.3 inch WiFi 64GB', './img_svg/0_picProduct/iPad/mini/ipad-mini-6-thumnail.jpg'),
 ('iPad Pro 13 inch M4 2024 Wifi 256GB', 43490000, 43390000, 100, GETDATE(), GETDATE(), 'iPad Pro 13 inch M4 2024 Wifi 256GB', './img_svg/0_picProduct/iPad/pro/ipad-pro-13inch-M4-wifi-thumnail.jpg'),
 ('iPad Pro 11 inch M4 2024 Wifi 256GB', 30000000, 28990000, 100, GETDATE(), GETDATE(), 'iPad Pro 11 inch M4 2024 Wifi 256GB', './img_svg/0_picProduct/iPad/pro/ipad-pro-13inch-M4-wifi-thumnail.jpg');
+INSERT INTO Products ([name], price, discount, quantity, created_at, updated_at, [description], thumbnail)
+VALUES
+('OPPO Reno11 F 5G 8GB-256GB', 8490, 7990, 100, GETDATE(), GETDATE(), 'OPPO Reno11 F 5G 8GB-256GB', './img_svg/0_picProduct/Oppo/oppo-reno11-thumnail.jpg')
 
 INSERT INTO productCategories (productID, categoryID)
 values
@@ -789,43 +827,3 @@ select * from OrderDetails
 
 select * from Orders
 */
-
-
-
-
-ALTER TABLE Users
-ADD status BIT
-
-
-CREATE TABLE Discounts (
-    discountID INT PRIMARY KEY IDENTITY(1,1),
-    code NVARCHAR(50) UNIQUE,               -- Mã giảm giá do người dùng nhập (VD: SALE20)
-    name NVARCHAR(255),                     -- Tên hiển thị (VD: Giảm giá mùa hè)
-    type NVARCHAR(20),                      -- 'percentage', 'fixed'
-    value DECIMAL(10,2),                    -- VD: 20.00 (20%), hoặc 50000 (giảm 50k)
-    minOrderValue DECIMAL(10,2) DEFAULT 0,  -- Đơn tối thiểu để áp dụng
-    quantity INT,                           -- Số lượt còn lại
-    startDate DATETIME,
-    endDate DATETIME,
-    status BIT DEFAULT 1,                   -- 1 = Đang hoạt động, 0 = Đã tắt (do admin)
-    createdAt DATETIME DEFAULT GETDATE()
-);
-
-ALTER TABLE Orders
-ADD discountID INT;
-
-ALTER TABLE Orders
-ADD CONSTRAINT FK_Orders_Discounts
-    FOREIGN KEY (discountID) REFERENCES Discounts(discountID);
-
-CREATE TABLE dbo.Notifications
-(
-    NotificationID    INT             IDENTITY(1,1)    PRIMARY KEY,
-    RecipientType     NVARCHAR(50)    NOT NULL,               -- 'Customer', 'Employee' hoặc 'All'
-    Title             NVARCHAR(200)   NOT NULL,               -- Tiêu đề thông báo
-    Message           NVARCHAR(MAX)   NOT NULL,               -- Nội dung thông báo
-    CreatedAt         DATETIME2       NOT NULL  DEFAULT GETDATE()
-);
-
-
-
