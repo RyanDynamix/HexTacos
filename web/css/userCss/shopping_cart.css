@@ -1,0 +1,627 @@
+/*đặt hàng*/
+.dat_hang{
+    background-image: repeating-linear-gradient(45deg, #6fa6d6, #6fa6d6 33px, transparent 0, transparent 41px, #f18d9b 0, #f18d9b 74px, transparent 0, transparent 82px);
+    background-position-x: -30px;
+    background-size: 116px 2px;
+    height: 2px;
+    width: 140%;
+    margin-top: -15px;
+    margin-bottom: 5px;
+}
+.user_info input{
+    padding-right: 41%;
+}
+.submit-btn{
+    background: transparent;
+    border: 1px solid orange;
+    padding: 6px;
+    transition: 0.25s ease-in-out;
+    border-radius: 5px;
+    margin-left: 35%;
+    padding-right: 40%;
+}
+
+/*header*/
+.pacifico-regular {
+    font-family: 'Pacifico', cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.content--padding {
+    padding-top: 105px;
+}
+
+.hight--header {
+    height: 105px;
+    z-index: 99;
+}
+
+@media screen and (max-width: 992px) and (min-width: 762px) {
+    /* Đây là các quy tắc CSS sẽ áp dụng cho các màn hình có độ rộng từ 762px đến 992px */
+    .content--padding {
+        padding-top: 144px;
+    }
+
+    .hight--header {
+        height: 144px;
+        z-index: 99;
+    }
+}
+
+/* Css phần thanh quảng cáo trên nav-bar */
+.bannerTopHead {
+    padding: 0 10rem 0 10rem;
+    width: 100%;
+    text-align: center;
+    background-color: #e9efff;
+}
+
+.imgTopHead {
+    width: 20rem;
+}
+
+/* css phần nav-bar */
+
+.textColor {
+    color: #2a5a94;
+}
+
+#verticalbar {
+    height: 40px;
+    width: 1px;
+    background: #97a2b0;
+}
+
+.searchInput {
+    width: 320px;
+    border-radius: 10px;
+    border: none;
+    padding-top: 14px;
+    padding-bottom: 4px;
+    border: 1px solid #d5d6d6;
+}
+
+.searchInput:focus-visible {
+    outline: none;
+}
+
+input.searchInput::placeholder {
+    color: #2468bb;
+    vertical-align: middle;
+}
+
+.searchImg {
+    top: 13px;
+    right: 290px;
+}
+
+.changeWidth {
+    width: 36px;
+}
+
+.iconChange:after {
+    content: '';
+    display: block;
+    margin: auto;
+    height: 3px;
+    width: 0px;
+    background: transparent;
+    transition: all 0.5s ease;
+}
+
+.iconChange:hover::after {
+    width: 100%;
+    background: #0d6efd;
+}
+
+.iconHeight {
+    height: 22px;
+    width: 22px;
+}
+
+.iconHeight--delivery {
+    height: 26px;
+    width: 26px;
+    padding-top: 0;
+}
+
+.iconChange:hover a {
+    color: #0d6efd;
+}
+
+.iconChange img {
+    transition: all 500ms;
+}
+
+.iconChange:hover img {
+    transform: translateX(-180%);
+    transform-origin: right;
+    transition: transform 500ms ease-in-out;
+}
+
+.smallFont {
+    font-size: 15px;
+}
+
+#hostBtn {
+    background: #163a66;
+    background: linear-gradient(to left, #1c4980 50%, #163a66 50%) right;
+    background-size: 200%;
+    transition: 0.5s ease-out;
+}
+
+#hostBtn:hover {
+    background-position: left;
+}
+
+#loginBtn {
+    background: #0d6efd;
+    background: linear-gradient(to left, #0073e6 50%, #005cb8 50%) right;
+    background-size: 200%;
+    transition: 0.5s ease-out;
+}
+
+#loginBtn:hover {
+    background-position: left;
+}
+
+#iconContainer {
+    height: 35px;
+    width: 35px;
+}
+
+.extraSmallFont {
+    font-size: 12px;
+    border-bottom: 2px solid transparent;
+}
+
+#secondNav {
+    background: #ffffffd4;
+}
+
+@media screen and (max-width: 1400px) {
+    .brand {
+        font-size: 18px;
+    }
+
+    .brandSubHeading {
+        font-size: 12px;
+    }
+
+    .searchInput {
+        width: 280px;
+    }
+
+    .iconHeight {
+        height: 20px;
+        width: 20px;
+    }
+
+    .searchImg {
+        top: 12px;
+        right: 250px;
+    }
+}
+
+/* Css cho search button ở mobile */
+.search-box {
+    display: none; /* Mặc định ẩn nó đi */
+}
+
+@media (max-width: 992px) {
+    .search-box {
+        display: flex; /* Hiển thị nó lại khi màn hình nhỏ hơn hoặc bằng 576px */
+        align-items: center;
+        justify-content: end;
+        margin-right: 10px; /* Điều chỉnh margin phù hợp với thiết kế */
+    }
+
+    .search-input {
+        margin-left: 20px;
+        width: 0;
+        height: 30px;
+        padding: 0;
+        border: none;
+        transition: width 0.3s ease-out; /* Hiệu ứng dịch chuyển cho input */
+    }
+
+    .search-box.open .search-input {
+        width: 100%; /* Điều chỉnh chiều rộng khi mở */
+        padding: 0.5rem; /* Điều chỉnh padding cho input */
+        border: 1px solid #ccc; /* Điều chỉnh border cho input */
+        
+    }
+
+    .search-btn {
+        height: 30px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        margin-left: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .search-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .search-btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+}
+.breadcrumb {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+    margin-top: 55px;
+    margin-left: 10%;
+}
+
+.breadcrumb li {
+    display: inline-block;
+    margin-right: 0.5%;
+}
+
+.active {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.breadcrumb li:last-child a {
+    color: #6C757D;
+}
+
+.breadcrumb li a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb li:last-child a:hover {
+    text-decoration: none;
+    cursor: text;
+}
+
+.breadcrumb li::before {
+    content: "/";
+}
+
+.breadcrumb li:first-child::before {
+    content: "";
+}
+.menu-bar li{
+    list-style: none;
+}
+.menu-bar {
+    /* background-color: #252525; */
+    padding: 1px 150px;
+    background-color: #e8e5e5;
+}
+
+.menu-bar ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-bar ul li a {
+    /* color: white; */
+    color: black;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.menu-bar-content>ul>li {
+    margin-bottom: -17px;
+    padding: 10px 17px 10px 17px;
+}
+
+.menu-bar ul li a:hover {
+    opacity: 0.6;
+}
+
+.sb-button {
+    color: white;
+    margin-top: 90px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    background-color: #F97E0E;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.menu-bar-content ul li {
+    position: relative;
+}
+
+.submenu {
+    position: absolute;
+    background-color: white;
+    /* width: 300px; */
+    width: 500%;
+    height: auto;
+    left: 0;
+    top: 100%;
+    padding: 12px;
+    display: none;
+    z-index: 999;
+    /* border-radius: 10px; */
+    box-shadow: 0 0 3px black;
+}
+
+.submenu ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu ul li {
+    padding: 6px 0;
+}
+
+.submenu ul li a {
+    color: black;
+}
+
+.submenu ul li:hover a {
+    color: blue;
+}
+
+.submenu ul li:hover {
+    background: none;
+}
+
+.menu-bar-content ul li:hover .submenu {
+    display: block;
+}
+.content_page{
+    padding-right: 9%;
+    padding-left: 9%;
+}
+/* content */
+.table-light tr th{
+    background-color: #EEF2F7;
+    padding: 15px;
+    font-size: 14px;
+    color: #313A46;
+}
+.text-body{
+    text-decoration: none;
+}
+.product td:nth-child(1){
+    padding-top: 27px;
+}
+.product td:nth-child(2){
+    padding-top: 27px;
+}
+.product td:nth-child(3){
+    padding-top: 27px;
+}
+.product td:nth-child(4){
+    padding-top: 27px;
+}
+.product td:nth-child(5){
+    padding-top: 27px;
+}
+
+/* footer */
+
+.footer {
+    background-color: #4a4242;
+    /* padding: 20px 0; */
+    margin-top: 60px;
+}
+
+.footer-info {
+    margin-top: 10px;
+}
+
+.footer h4 {
+    margin-top: 43px;
+    color: #ff5722;
+    padding: 0 0 20px 0;
+    font-weight: 600;
+    text-align: left;
+    font-size: 20px;
+}
+
+.footer-info li {
+    color: #EEE;
+    display: block;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 25px;
+    margin-left: -8%;
+}
+
+.links a {
+    color: #EEE;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.links a:hover {
+    color: #FFF;
+    text-decoration: underline;
+}
+
+a.mail {
+    color: #EEE;
+}
+
+a.mail:hover {
+    color: #bdd001;
+}
+
+/*-- Newsletter --*/
+.footer-info p {
+    color: #EEE;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 23px;
+    margin-bottom: 10px;
+}
+
+.newsletter {
+    position: relative;
+}
+
+.newsletter .email {
+    padding: 5px 60px 5px 15px;
+    font-style: italic;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    height: 40px;
+    border: 1px solid #ddd;
+    width: 100%;
+    outline: none;
+    color: #bcc0c4;
+    background-color: #565f66;
+    border: none;
+    margin-top: 10px;
+}
+
+.newsletter .submit {
+    width: 50%;
+    height: 40px;
+    background-image: url('../images/subscribe.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    background-color: red;
+    top: 140px;
+    right: 20%;
+    border: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    transition: all 0.5s;
+    outline: none;
+}
+
+.newsletter:hover .submit {
+    background-color: #ff5722;
+}
+
+/*-- //Newsletter --*/
+/*-- Footer-Social-Icons --*/
+.connect {
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.connect h4 {
+    text-align: center;
+    margin-left: 2%;
+}
+
+.connect-social ul li {
+    display: inline-block;
+    margin: 0 2px;
+}
+
+.connect-social ul li a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    background-size: 300px;
+    color: #fff;
+    border: 1px solid #fff;
+    line-height: 2.4em;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.connect-social ul li a:hover {
+    color: #bdd001;
+    border-color: #bdd001;
+    -webkit-transform: rotatez(360deg);
+    -moz-transform: rotatez(360deg);
+    -o-transform: rotatez(360deg);
+    -ms-transform: rotatez(360deg);
+    transform: rotatez(360deg);
+}
+
+/*-- Footer-Social-Icons --*/
+/*-- Copyright --*/
+.copyright {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 1px solid #EEE;
+}
+
+.copyright p {
+    color: #FFF;
+}
+
+.copyright a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.copyright a:hover {
+    color: #bdd001;
+    text-decoration: underline;
+}
+
+#toTop {
+    display: none;
+    text-decoration: none;
+    position: fixed;
+    bottom: 3%;
+    right: 3%;
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    border: none;
+    text-indent: 100%;
+    background: url("../images/move-up.png") no-repeat 0px 0px;
+}
+
+#toTopHover {
+    width: 32px;
+    height: 32px;
+    display: block;
+    overflow: hidden;
+    float: right;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.social-button:hover {
+    transform: rotate(360deg);
+}
+
+.social-button {
+    display: inline-block;
+    transition: transform 0.3s;
+}
+/*btn go to top*/
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    width: 3%;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
+}
+.form-control{
+    width: 60px; 
+    padding-right: 0px;
+}

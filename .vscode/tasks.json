@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build and Deploy",
+			"type": "shell",
+			"command": "ant",
+			"args": [
+				"clean",
+				"dist"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$javac"
+			]
+		}
+	]
+}

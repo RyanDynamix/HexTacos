@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>web/tablet_list.jsp</url>
+            <bookmark id="1">
+                <name/>
+                <line>215</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group/>
+        <group name="Group 20250322-09:47:37">
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/customerController.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/userMainPage.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/feedback_list.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/productDetailController.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/discounts.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/DBContext.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/DiscountDAO.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/productDetails.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/authController.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/feedback_form.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/myJs/userJs/shopping_cart_discount.js</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/WEB-INF/web.xml</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/deliveryList.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/calendar.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/shoppingCartController.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/customers.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/auth.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/FeedbackController.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/notifications.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/shoppingCart.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/model/Feedbacks.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/feedback_form.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/feedback_list.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/tablet_list.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/products.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/UserDAO.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/orders.jsp</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/FeedbackDAO.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/DatabaseInfo.java</file>
+            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/index.jsp</file>
+        </group>
+    </open-files>
+</project-private>
