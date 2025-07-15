@@ -150,25 +150,6 @@
                                         <div class="smallFont textColor">Giỏ hàng</div>
                                     </a>
                                 </li>
-                                <li class="nav-item iconChange dropdown me-4 pt-2">
-                                    <a href="#" class="nav-link text-center p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <div class=" d-flex align-items-center overflow-hidden changeWidth mx-auto">
-                                            <i class="fas fa-bell iconHeight mx-2" style="font-size: 20px;"></i>
-                                            <span class="badge bg-danger rounded-circle" id="customerNotificationCount" style="font-size: 8px; position: absolute; top: -5px; right: 10px;">0</span>
-                                        </div>
-                                        <div class="smallFont textColor">Thông báo</div>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end" style="width: 350px; max-height: 400px; overflow-y: auto;">
-                                        <div class="dropdown-header">
-                                            <h6 class="m-0"><i class="ri-notification-2-line me-2"></i>Thông báo</h6>
-                                        </div>
-                                        <div id="customerNotificationList">
-                                            <div class="text-center p-3">
-                                                <small class="text-muted">Đang tải thông báo...</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
 
@@ -184,9 +165,11 @@
                                 </button>
                             </div>
                         </div>
-                        
-                      
-                        
+                        <style>
+                            #icon-drop {
+                                display: flex;
+                            }
+                        </style>
                         <c:choose>
                             <c:when test="${not empty account}">
                                 <form action="auth?action=logout" method="POST">
@@ -198,7 +181,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
                                             <c:if test="${account.roleID == 1}">
-                                                <a href="Admin/index" class="dropdown-item">
+                                                <a href="/HexTech77/Admin/index" class="dropdown-item">
                                                     <i class="mdi mdi-logout me-1"></i>
                                                     <span>Admin Page</span>
                                                 </a>
@@ -210,6 +193,7 @@
                                         </div>
                                     </li>
                                 </form>
+
                             </c:when>
                             <c:otherwise>
                                 <form action="auth?action=login" method="POST">
@@ -741,27 +725,6 @@
             </div>
         </main>
 
-        <style>
-            #icon-drop {                            display: flex;
-                        }
-                        
-                        /* Simple notification styles */
-                        .dropdown-menu {
-                            z-index: 1050;
-                        }
-                        
-                        .dropdown-item {
-                            white-space: normal !important;
-                        }
-                        
-                        .badge {
-                            min-width: 18px;
-                            height: 18px;
-                            line-height: 18px;
-                            text-align: center;
-                            border-radius: 50%;
-                        }
-        </style>
         <script>
             //Hiển thị thông cáo khi xác nhận Order
             window.onload = function () {
@@ -776,83 +739,7 @@
                     // Remove the hidden input field after alert
                     notifyOrderField.remove();
                 }
-                
-                // Load notifications immediately
-                console.log('Page loaded, loading notifications...');
-                loadUserNotifications();
             };
-            
-            // Function to load notifications for user/guest
-            function loadUserNotifications() {
-                console.log('Loading user notifications...');
-                // Always load All + Customer notifications for user pages
-                loadNotifications('Customer', 'notificationList', 'notificationCount');
-            }
-            
-            // Function to load notifications by type
-            function loadNotifications(recipientType, listElementId, countElementId) {
-                console.log('Loading notifications for:', recipientType);
-                console.log('Target elements:', listElementId, countElementId);
-                
-                fetch('notifications?action=api&recipientType=' + recipientType)
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('API Response:', data);
-                    
-                    const listElement = document.getElementById(listElementId);
-                    const countElement = document.getElementById(countElementId);
-                    
-                    console.log('List element found:', listElement);
-                    console.log('Count element found:', countElement);
-                    
-                    if (data.success && data.notifications) {
-                        const notifications = data.notifications;
-                        console.log('Notifications count:', notifications.length);
-                        console.log('First notification:', notifications[0]);
-                        
-                        if (countElement) {
-                            countElement.textContent = notifications.length;
-                        }
-                        
-                        if (listElement) {
-                            if (notifications.length === 0) {
-                                listElement.innerHTML = '<div class="text-center p-3"><small class="text-muted">Không có thông báo mới</small></div>';
-                            } else {
-                                let html = '';
-                                notifications.forEach((notification, index) => {
-                                    const message = notification.message || notification.Message || 'No message';
-                                    html += '<div class="dropdown-item" style="white-space: normal; padding: 10px 15px; border-bottom: 1px solid #eee; cursor: pointer;">' + message + '</div>';
-                                });
-                                listElement.innerHTML = html;
-                                console.log('Notifications loaded successfully:', notifications.length);
-                            }
-                        }
-                    } else {
-                        console.log('API returned error or no notifications');
-                        if (listElement) {
-                            listElement.innerHTML = '<div class="text-center p-3"><small class="text-muted">Lỗi khi tải thông báo</small></div>';
-                        }
-                        if (countElement) {
-                            countElement.textContent = '0';
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading notifications:', error);
-                    const listElement = document.getElementById(listElementId);
-                    const countElement = document.getElementById(countElementId);
-                    
-                    if (listElement) {
-                        listElement.innerHTML = '<div class="text-center p-3"><small class="text-muted">Lỗi khi tải thông báo</small></div>';
-                    }
-                    if (countElement) {
-                        countElement.textContent = '0';
-                    }
-                });
-            }
         </script>
         <script src="./myJs/userJs/trang_chu.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -862,9 +749,6 @@
                 integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/54f0cb7e4a.js" crossorigin="anonymous"></script>
-        
-        <!-- Customer Notification JavaScript -->
-        <%@include file="includes/notification-js.jsp" %>
     </body>
 
 </html>

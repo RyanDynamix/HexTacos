@@ -115,11 +115,10 @@
                             <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
                                 <form class="p-3">
                                     <input type="search" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                </form>                            </div>
+                                </form>
+                            </div>
                         </li>
                         
-                        <%@ include file="includes/notification-dropdown.jsp" %>
-
                         <li class="d-none d-sm-inline-block">
                             <a class="nav-link" data-bs-toggle="offcanvas" href="#theme-settings-offcanvas">
                                 <i class="ri-settings-3-line font-22"></i>
@@ -248,14 +247,9 @@
                                         <a href="orders">Đơn đặt hàng</a>
                                     </li>
                                     <li>
-                                        <a href="customers">Tài khoản</a>
+                                        <a href="customers">Khách hàng</a>
                                     </li>
-                                    <li>
-                                        <a href="adminDiscount">Mã giảm giá</a>
                                     </li>
-                                    <li>
-                                    <a href="notifications">Thông báo</a>
-                                </li>
                                 </ul>
                             </div>
                         </li>
@@ -322,7 +316,7 @@
                                         <div class="row mb-2">
                                             <div class="col-sm-12">
                                                 <div class="text-sm-end">
-                                                    <a href="adminCustomer?action=add" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> Thêm khách hàng</a>
+                                                    <a href="add-customer.jsp" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> Thêm khách hàng</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -342,7 +336,6 @@
                                                         <th>Email</th>
                                                         <th>Điện thoại</th>
                                                         <th>Địa chỉ</th>
-                                                        <th>Quyền</th>
                                                         <th>Trạng thái</th>
                                                         <th style="width: 75px;">Hành động</th>
                                                     </tr>
@@ -372,27 +365,18 @@
                                                         </td>
                                                         <td>
                                                             <c:choose>
-                                                                <c:when test="${user.roleID eq 1}">
-                                                                    <h5><span class="badge badge-danger-lighten">Manager</span></h5>
-                                                                </c:when>
-                                                                <c:when test="${user.roleID eq 2}">
-                                                                    <h5><span class="badge badge-primary-lighten">Customer</span></h5>
-                                                                </c:when>
-                                                                <c:when test="${user.roleID eq 3}">
-                                                                    <h5><span class="badge badge-warning-lighten">Staff</span></h5>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <h5><span class="badge badge-info-lighten">Không xác định</span></h5>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </td>
-                                                        <td>
-                                                            <c:choose>
-                                                                <c:when test="${user.status}">
-                                                                    <h5><span class="badge badge-success-lighten">Active</span></h5>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <h5><span class="badge badge-danger-lighten">InActive</span></h5>
+                                                                <c:when test="${user.roleID eq '1'}">
+                                                                    <h5><span class="badge badge-danger-lighten">Admin</span></h5>
+                                                                        </c:when>
+                                                                        <c:when test="${user.roleID eq '2'}">
+                                                                    <h5><span class="badge badge-primary-lighten">Người dùng</span></h5>
+                                                                        </c:when>
+                                                                    <c:when test="${user.roleID eq '3'}">
+                                                                    <h5><span class="badge badge-primary-lighten">Bị chặn</span></h5>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                    <!-- Handle default case if needed -->
+                                                                    <h5><span class="badge">${order.paymentStatus}</span></h5>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </td>
@@ -421,7 +405,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                <script>document.write(new Date().getFullYear())</script> 
+                                <script>document.write(new Date().getFullYear())</script> © Kleqing - kleqing.github.io
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-md-block">
@@ -913,8 +897,6 @@
 
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
-        
-        <%@ include file="includes/notification-js.jsp" %>
 
     </body>
     <script type="text/javascript">

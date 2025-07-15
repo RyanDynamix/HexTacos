@@ -117,8 +117,6 @@
                                 </form>
                             </div>
                         </li>
-                        
-                        <%@ include file="includes/notification-dropdown.jsp" %>
 
                         <li class="d-none d-sm-inline-block">
                             <a class="nav-link" data-bs-toggle="offcanvas" href="#theme-settings-offcanvas">
@@ -247,14 +245,9 @@
                                         <a href="orders">Đơn đặt hàng</a>
                                     </li>
                                     <li>
-                                        <a href="customers">Tài khoản</a>
+                                        <a href="customers">Khách hàng</a>
                                     </li>
-                                    <li>
-                                        <a href="adminDiscount">Mã giảm giá</a>
                                     </li>
-                                    <li>
-                                    <a href="notifications">Thông báo</a>
-                                </li>
                                 </ul>
                             </div>
                         </li>
@@ -304,31 +297,15 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item">Quản lý</li>
+                                            <li class="breadcrumb-item">Quản lý sản phẩm</a></li>
                                             <li class="breadcrumb-item active"><a href="#">Sản phẩm</a></li>
                                         </ol>
                                     </div>
-                                    <h4 class="page-title">Sản phẩm</h4>
+                                    <h4 class="page-title">Products</h4>
                                 </div>
                             </div>
                         </div>
                         <!-- end page title -->
-                        
-                        <!-- Display success and error messages -->
-                        <c:if test="${not empty sessionScope.successMessage}">
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Success!</strong> ${sessionScope.successMessage}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            <% session.removeAttribute("successMessage"); %>
-                        </c:if>
-                        <c:if test="${not empty sessionScope.errorMessage}">
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Error!</strong> ${sessionScope.errorMessage}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            <% session.removeAttribute("errorMessage"); %>
-                        </c:if>
 
                         <div class="row">
                             <div class="col-12">
@@ -336,7 +313,7 @@
                                     <div class="card-body">
                                         <div class="row mb-2">
                                             <div class="col-sm-5">
-                                                <a href="addProduct" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i>Thêm sản phẩm</a>
+                                                <a href="add-products.jsp" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i>Thêm sản phẩm</a>
                                             </div>
                                         </div>
 
@@ -386,7 +363,7 @@
                                                             <td>${product.quantity}</td>
                                                             <td>${product.description}</td>
                                                             <td class="table-action">
-                                                                <a href="editProduct?id=${product.productID}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                                <a href="detailProduct?action=edit&productID=${product.productID}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                                 <a href="javascript:void(0);" onclick="doDelete('${product.productID}')" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                             </td>
                                                         </tr>
@@ -409,7 +386,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                <script>document.write(new Date().getFullYear())</script> 
+                                <script>document.write(new Date().getFullYear())</script> © Kleqing - kleqing.github.io
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-md-block">
@@ -902,8 +879,6 @@
 
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
-        
-        <%@ include file="includes/notification-js.jsp" %>
 
     </body>
     <script type="text/javascript">
