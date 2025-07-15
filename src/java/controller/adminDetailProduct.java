@@ -10,18 +10,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-import java.io.File;
-import java.nio.file.Paths;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 import model.Categories;
 import model.ProductDetail;
 import model.Products;
@@ -31,7 +24,6 @@ import model.Products;
  * @author TRUNG KIEN
  */
 @WebServlet(name="adminDetailProduct", urlPatterns={"/Admin/detailProduct"})
-@MultipartConfig(maxFileSize = 16177215)
 public class adminDetailProduct extends HttpServlet {
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -90,81 +82,7 @@ public class adminDetailProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String action = request.getParameter("action");
-        
-        if ("updateProduct".equals(action)) {
-            try {
-                // Lấy thông tin cơ bản của sản phẩm
-                int productID = Integer.parseInt(request.getParameter("productID"));
-                String name = request.getParameter("name");
-                String description = request.getParameter("description");
-                String created_at = request.getParameter("created_at");
-                String updated_at = request.getParameter("updated_at");
-                double price = Double.parseDouble(request.getParameter("price"));
-                double discount = Double.parseDouble(request.getParameter("discount"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                
-                // Lấy thông tin danh mục
-                int loaiPr = Integer.parseInt(request.getParameter("loaiPr"));
-                int hangPr = Integer.parseInt(request.getParameter("hangPr"));
-                int idLoai = Integer.parseInt(request.getParameter("idLoai"));
-                int idHang = Integer.parseInt(request.getParameter("idHang"));
-                
-                // Lấy thông tin sản phẩm hiện tại để lấy thumbnail cũ
-                ProductDAO dao = new ProductDAO();
-                Products currentProduct = dao.findProductByID(productID);
-                String thumbnailPath = currentProduct.getThumbnail();
-                
-                // Xử lý upload ảnh mới nếu có
-                Part thumbnailPart = request.getPart("thumbnail");
-                if (thumbnailPart != null && thumbnailPart.getSize() > 0) {
-                    // Upload ảnh mới
-                    thumbnailPath = uploadFile(thumbnailPart, hangPr, getServletContext().getRealPath("/"));
-                }
-                
-                // Cập nhật thông tin sản phẩm
-                dao.editProduct(productID, name, price, discount, quantity, 
-                        Date.valueOf(created_at), Date.valueOf(updated_at), 
-                        description, thumbnailPath);
-                
-                // Cập nhật danh mục nếu có thay đổi
-                if (loaiPr != idLoai) {
-                    dao.editProductCategory(productID, idLoai, loaiPr);
-                }
-                
-                if (hangPr != idHang) {
-                    dao.editProductCategory(productID, idHang, hangPr);
-                }
-                
-                // Xử lý thêm ảnh bổ sung nếu có
-                Part additionalImagesPart = request.getPart("additionalImages");
-                if (additionalImagesPart != null && additionalImagesPart.getSize() > 0) {
-                    Collection<Part> parts = request.getParts();
-                    List<String> additionalImagePaths = new ArrayList<>();
-                    
-                    for (Part part : parts) {
-                        if ("additionalImages".equals(part.getName()) && part.getSize() > 0) {
-                            String imagePath = uploadFile(part, hangPr, getServletContext().getRealPath("/"));
-                            additionalImagePaths.add(imagePath);
-                        }
-                    }
-                    
-                    if (!additionalImagePaths.isEmpty()) {
-                        dao.addListImageForProduct(productID, additionalImagePaths);
-                    }
-                }
-                
-                // Chuyển hướng về trang chi tiết sản phẩm
-                response.sendRedirect("adminProduct?action=edit&productID=" + productID);
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.sendRedirect("products");
-            }
-        } else {
-            // Chuyển các request khác sang doGet
-            doGet(request, response);
-        }
+        processRequest(request, response);
     }
 
     /** 
@@ -305,71 +223,6 @@ public class adminDetailProduct extends HttpServlet {
         dao.deleteProductDetail(ID);
     }
     
-    private String uploadFile(Part part, int category, String webAppPath) throws IOException {
-        try {
-            // Lấy tên file gốc
-            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-            
-            // Tạo tên file duy nhất
-            String uniqueFileName = UUID.randomUUID().toString();
-            if (fileName != null && !fileName.isEmpty()) {
-                String extension = "";
-                int i = fileName.lastIndexOf('.');
-                if (i > 0) {
-                    extension = fileName.substring(i);
-                    uniqueFileName += extension;
-                } else {
-                    uniqueFileName += ".jpg"; // Default extension
-                }
-            } else {
-                uniqueFileName += ".jpg"; // Default extension
-            }
-            
-            // Xác định thư mục theo hãng sản phẩm
-            String categoryFolder;
-            switch (category) {
-                case 3: categoryFolder = "Apple"; break;
-                case 4: categoryFolder = "Samsung"; break;
-                case 5: categoryFolder = "Oppo"; break;
-                case 6: categoryFolder = "Xiaomi"; break;
-                default: categoryFolder = "Other"; break;
-            }
-            
-            // Tạo các thư mục cần thiết nếu chưa tồn tại
-            String baseDir = webAppPath + "img_svg";
-            File baseDirFile = new File(baseDir);
-            if (!baseDirFile.exists()) {
-                baseDirFile.mkdir();
-                System.out.println("Created directory: " + baseDir);
-            }
-            
-            String picProductDir = baseDir + File.separator + "0_picProduct";
-            File picProductDirFile = new File(picProductDir);
-            if (!picProductDirFile.exists()) {
-                picProductDirFile.mkdir();
-                System.out.println("Created directory: " + picProductDir);
-            }
-            
-            // Đường dẫn lưu file
-            String uploadPath = picProductDir + File.separator + categoryFolder;
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-                System.out.println("Created directory: " + uploadPath);
-            }
-            
-            // Lưu file
-            String fullPath = uploadPath + File.separator + uniqueFileName;
-            part.write(fullPath);
-            
-            System.out.println("Saved file to: " + fullPath);
-            
-            // Trả về đường dẫn tương đối cho database
-            return "./img_svg/0_picProduct/" + categoryFolder + "/" + uniqueFileName;
-        } catch (Exception e) {
-            System.out.println("Error in uploadFile: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
-    }
+    
+
 }

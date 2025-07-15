@@ -171,5 +171,9 @@ public class Orders implements Serializable {
         return "Orders{" + "orderID=" + orderID + ", userID=" + userID + ", orderConfirmed=" + orderConfirmed + ", orderDate=" + orderDate + ", totalMoney=" + totalMoney + ", phone=" + phone + ", paymentStatus=" + paymentStatus + ", deliveryStatus=" + deliveryStatus + ", paymentType=" + paymentType + ", deliveryInfo=" + deliveryInfo + ", nameOrder=" + nameOrder + ", deliveryLocation=" + deliveryLocation + ", totalString=" + totalString + '}';
     }
 
+    public void setTransactionId(String vnp_TransactionNo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     
 }

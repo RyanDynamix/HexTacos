@@ -131,6 +131,14 @@
             </div>
         </div>
 
+
+        <footer>
+            <p>
+                Created with <i class="fa fa-heart"></i> by
+                Hoang Nam & Trung Kien & Khanh Nhan & Ngoc Trung & Huu Quang
+            </p>
+        </footer>
+
         <script>
             window.onload = function () {
                 var notifyAuthField = document.getElementById('notifyAuth');

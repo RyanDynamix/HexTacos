@@ -5,44 +5,35 @@
             <url>web/tablet_list.jsp</url>
             <bookmark id="1">
                 <name/>
-                <line>215</line>
+                <line>196</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
-        <group name="Group 20250322-09:47:37">
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/customerController.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/userMainPage.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/feedback_list.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/productDetailController.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/discounts.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/DBContext.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/DiscountDAO.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/productDetails.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/authController.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/feedback_form.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/myJs/userJs/shopping_cart_discount.js</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/WEB-INF/web.xml</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/deliveryList.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/calendar.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/shoppingCartController.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/customers.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/auth.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/controller/FeedbackController.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/notifications.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/shoppingCart.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/model/Feedbacks.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/feedback_form.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/feedback_list.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/tablet_list.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/products.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/UserDAO.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/orders.jsp</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/FeedbackDAO.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/src/java/dal/DatabaseInfo.java</file>
-            <file>file:/D:/HexTech_DuyHung/HexTech/web/Admin/index.jsp</file>
+        <group>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/homePageController.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/payment/VnpayRefund.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/model/donHang.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/payment/VnpayReturn.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/model/Orders.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/fogotPassController.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/web/payment/payment-result.jsp</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/model/Users.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/dal/OrderDAO.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/deliveryListController.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/payment/Config.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/shoppingCartController.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/dal/ProductDAO.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/payment/ajaxServlet.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/model/Roles.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/orderController.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/web/shoppingCart.jsp</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/customerController.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/searchProductController.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/controller/productController.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/model/gioHang.java</file>
+            <file>file:/C:/Users/ASUS/HexTech-main/HexTech-main/src/java/feature/sendEmail/Email.java</file>
         </group>
     </open-files>
 </project-private>

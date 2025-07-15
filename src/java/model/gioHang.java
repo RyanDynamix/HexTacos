@@ -9,8 +9,8 @@ public class gioHang {
     private String storage;
     private String color;      //lấy theo bên OrderDetail
     private int quantity;
-    private double price;
-    private double totalMoney;
+    private int price;
+    private int totalMoney;
     //thuộc tính không có trong database
     private String disString;
     private String thanhTien;
@@ -24,7 +24,7 @@ public class gioHang {
     public gioHang() {
     }
 
-//    public gioHang(int orderID, String productName, String storage, String color, int quantity, double price, double totalMoney) {
+//    public gioHang(int orderID, String productName, String storage, String color, int quantity, int price, int totalMoney) {
 //        this.orderID = orderID;
 //        this.productName = productName;
 //        this.storage = storage;
@@ -34,7 +34,7 @@ public class gioHang {
 //        this.totalMoney = totalMoney;
 //    }
 
-    public gioHang(int orderID, String productName, String storage, String color, int quantity, double price, double totalMoney) {
+    public gioHang(int orderID, String productName, String storage, String color, int quantity, int price, int totalMoney) {
         this.orderID = orderID;
         this.productName = productName;
         this.storage = storage;
@@ -45,7 +45,7 @@ public class gioHang {
     }
     
 
-    public gioHang(int orderID, int productID, String productName, String thumbnail, String storage, String color, int quantity, double price, double totalMoney) {
+    public gioHang(int orderID, int productID, String productName, String thumbnail, String storage, String color, int quantity, int price, int totalMoney) {
         this.orderID = orderID;
         this.productID = productID;
         this.productName = productName;
@@ -171,19 +171,20 @@ public class gioHang {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public double getTotalMoney() {
-        return totalMoney;
-    }
+   public long getTotalMoney() {
+    return this.price * this.quantity;
+}
 
-    public void setTotalMoney(double totalMoney) {
+
+    public void setTotalMoney(int totalMoney) {
         this.totalMoney = totalMoney;
     }
 

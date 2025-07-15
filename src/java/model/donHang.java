@@ -11,8 +11,8 @@ public class donHang {
     private String storage;
     private String color;      //lấy theo bên OrderDetail
     private int quantity;
-    private double price;
-    private double totalMoney;
+    private int price;
+    private int totalMoney;
     //thêm vào
     private int userID;
     private String paymentStatus;
@@ -30,7 +30,7 @@ public class donHang {
     public donHang() {
     }
 
-    public donHang(int orderID, int productID, String productName, String thumbnail, String storage, String color, int quantity, double price, double totalMoney, int userID, String paymentStatus, String deliveryStatus, String paymentType, Date orderDate) {
+    public donHang(int orderID, int productID, String productName, String thumbnail, String storage, String color, int quantity, int price, int totalMoney, int userID, String paymentStatus, String deliveryStatus, String paymentType, Date orderDate) {
         this.orderID = orderID;
         this.productID = productID;
         this.productName = productName;
@@ -119,19 +119,19 @@ public class donHang {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public double getTotalMoney() {
+    public int getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(double totalMoney) {
+    public void setTotalMoney(int totalMoney) {
         this.totalMoney = totalMoney;
     }
 

@@ -8,8 +8,8 @@ public class Products implements Serializable{
 
     private int productID;
     private String name;
-    private double price;
-    private double discount;
+    private int price;
+    private int discount;
     private int quantity;
     private Date created_at;
     private Date updated_at;
@@ -22,7 +22,7 @@ public class Products implements Serializable{
     public Products() {
     }
 
-    public Products(int productID, String name, double price, double discount, int quantity, Date created_at, Date updated_at, String description, String thumbnail) {
+    public Products(int productID, String name, int price, int discount, int quantity, Date created_at, Date updated_at, String description, String thumbnail) {
         this.productID = productID;
         this.name = name;
         this.price = price;
@@ -67,19 +67,19 @@ public class Products implements Serializable{
         this.name = name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public double getDiscount() {
+    public int getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(int discount) {
         this.discount = discount;
     }
 

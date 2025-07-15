@@ -1,6 +1,8 @@
 package dal;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class OrderDAO extends DBContext {
             preStatement.setObject(1, order.getUserID());
             preStatement.setObject(2, 0);
 
-            preStatement.setObject(3, 0);
+            preStatement.setObject(3, order.getTotalMoney()); // set actual totalMoney
             preStatement.setString(4, order.getPhone());
             preStatement.setString(5, "Watting");
             preStatement.setString(6, "Watting");
@@ -97,10 +99,7 @@ public class OrderDAO extends DBContext {
         return orderID;
     }
 
-    public void updateOrderConfirmedDB(int orderID, String nameOrder, String phone, String location) {
-        //- connect w/Database              //chạy lệnh khi xác nhận đơn hàng
-        connection = getConnection();       //trigger sẽ tự động tính totalMoney
-        //- Chuan bi cau lenh sql
+    public void updateOrderConfirmedDB(int orderID, String nameOrder, String phone, String location, String paymentType, double totalMoney) {
         String sql = "UPDATE [dbo].[Orders]\n"
                 + "   SET [orderConfirmed] = 1\n"
                 + "      ,[orderDate] = GETDATE()\n"
@@ -111,20 +110,19 @@ public class OrderDAO extends DBContext {
                 + "      ,[deliveryInfo] = ?\n"
                 + "      ,[nameOrder] = ?\n"
                 + "      ,[deliveryLocation] = ?\n"
+                + "      ,[totalMoney] = ?\n"
                 + " WHERE [orderID] = ?";
         try {
-            //- Tao doi tuong prepareStatement
             preStatement = connection.prepareStatement(sql);
-            //- set parameter
-            preStatement.setObject(1, phone);               //phone
-            preStatement.setObject(2, "Unpaid");            //paymentStatus
-            preStatement.setObject(3, "Processing");        //deliveryStatus
-            preStatement.setObject(4, "COD");               //paymentType
-            preStatement.setObject(5, "Giaohangtietkiem");  //deliveryInfo
-            preStatement.setObject(6, nameOrder);           //nameOrder
-            preStatement.setObject(7, location);            //location
-            preStatement.setObject(8, orderID);
-            //- thuc thi cau lenh
+            preStatement.setObject(1, phone);
+            preStatement.setObject(2, "Unpaid");
+            preStatement.setObject(3, "Processing");
+            preStatement.setObject(4, paymentType);
+            preStatement.setObject(5, "Giaohangtietkiem");
+            preStatement.setObject(6, nameOrder);
+            preStatement.setObject(7, location);
+            preStatement.setObject(8, totalMoney); // <-- cập nhật tổng tiền!
+            preStatement.setObject(9, orderID);
             preStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("??updateOrderConfirmedDB: " + e.getMessage());
@@ -215,8 +213,8 @@ public class OrderDAO extends DBContext {
                 String storage = resultSet.getString("str");
                 String color = resultSet.getString("color");
                 int quantity = resultSet.getInt("quantity");
-                double price = resultSet.getDouble("price");
-                double totalMoney = resultSet.getDouble("totalMoney");
+                int price = resultSet.getInt("price");
+                int totalMoney = resultSet.getInt("totalMoney");
 
                 gioHang gh = new gioHang(id, productID, productName, thumbnail, storage, color, quantity, price, totalMoney);
                 allProducts.add(gh);
@@ -299,8 +297,8 @@ public class OrderDAO extends DBContext {
                 String storage = resultSet.getString("str");
                 String color = resultSet.getString("color");
                 int quantity = resultSet.getInt("quantity");
-                double price = resultSet.getDouble("price");
-                double totalMoney = resultSet.getDouble("totalMoney");
+                int price = resultSet.getInt("price");
+                int totalMoney = resultSet.getInt("totalMoney");
 
                 int userID_found = resultSet.getInt("userID");
                 String paymentStatus = resultSet.getString("paymentStatus");
@@ -460,7 +458,7 @@ public class OrderDAO extends DBContext {
             System.out.println("??updateOrderDetailsByID: " + e.getMessage());
         }
     }
-    
+
 //******************************************************************************** 
     public void updateAdminOrderDetailsByID(int orderDetailID, int quantity, String color) {
         //- connect w/Database              //không chỉnh sửa userID, lấy ID từ input hidden chứa ID
@@ -485,8 +483,9 @@ public class OrderDAO extends DBContext {
         }
     }
 //******************************************************************************** 
+
     public void updateAdminOrderByID(int orderID, String phone, String paymentStatus, String deliveryStatus, String paymentType,
-                                    String deliveryInfo, String nameOrder, String deliveryLocation) {
+            String deliveryInfo, String nameOrder, String deliveryLocation) {
         //- connect w/Database              //không chỉnh sửa userID, lấy ID từ input hidden chứa ID
         connection = getConnection();       //tạo thêm 1 nút ok, hiển thị khi khách hàng thay đổi số lượng mua
         //- Chuan bi cau lenh sql           //hoặc thi ấn Thanh toán thì phải update lại toàn bộ lại tất cả detailOrder có trong Order
@@ -595,7 +594,7 @@ public class OrderDAO extends DBContext {
                 int userID = resultSet.getInt("userID");
                 boolean orderConfirmed = resultSet.getBoolean("orderConfirmed");
                 Date orderDate = resultSet.getDate("orderDate");
-                double totalMoney = resultSet.getDouble("totalMoney");
+                int totalMoney = resultSet.getInt("totalMoney");
                 String phone = resultSet.getString("phone");
                 String paymentStatus = resultSet.getString("paymentStatus");
                 String deliveryStatus = resultSet.getString("deliveryStatus");
@@ -726,8 +725,8 @@ public class OrderDAO extends DBContext {
                 int quantity = resultSet.getInt("quantity");
                 String storage = resultSet.getString("str");
                 String color = resultSet.getString("color");
-                double price = resultSet.getDouble("price");
-                double totalMoney = resultSet.getDouble("totalMoney");
+                int price = resultSet.getInt("price");
+                int totalMoney = resultSet.getInt("totalMoney");
                 String nameOrder = resultSet.getString("nameOrder");
                 String deliveryLocation = resultSet.getString("deliveryLocation");
                 String phone = resultSet.getString("phone");
@@ -747,6 +746,184 @@ public class OrderDAO extends DBContext {
 
         }
         return null;
+    }
+
+    public boolean updateOrderStatus(Orders order) {
+        String sql = "UPDATE [dbo].[Orders]\n"
+                + "   SET [Status] = ?\n"
+                + " WHERE Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, order.getPaymentStatus());
+            st.setInt(2, order.getOrderID());
+            return st.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public int insertOrder(Orders order) {
+        String sql = "INSERT INTO [dbo].[Orders]\n"
+                + "           ([UserID]\n"
+                + "           ,[TotalAmount])\n"
+                + "     VALUES(?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setInt(1, order.getUserID());
+            st.setDouble(2, order.getTotalMoney());
+            int affectedRows = st.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating payment failed, no rows affected.");
+            }
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating payment failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return -1;
+        }
+    }
+
+    // Cập nhật paymentStatus về Unpaid hoặc Canceled khi hủy thanh toán
+    public void updatePaymentStatus(int orderID, String paymentStatus) {
+        String sql = "UPDATE Orders SET paymentStatus = ? WHERE orderID = ?";
+        try {
+            connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, paymentStatus); // "Unpaid" hoặc "Canceled"
+            ps.setInt(2, orderID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("??updatePaymentStatus: " + e.getMessage());
+        }
+    }
+
+    public Orders getOrderById(int orderID) {
+        String sql = "SELECT * FROM Orders WHERE orderID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, orderID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Orders o = new Orders();
+                o.setOrderID(rs.getInt("orderID"));
+                o.setNameOrder(rs.getString("nameOrder"));
+                o.setPhone(rs.getString("phone"));
+                o.setDeliveryLocation(rs.getString("deliveryLocation"));
+                o.setTotalMoney(rs.getDouble("totalMoney"));
+                return o;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Thêm method này vào OrderDAO.java
+    public void updateOrderInfoForPayment(int orderID, String nameOrder, String phone, String deliveryLocation, double totalMoney) {
+        String sql = "UPDATE Orders SET nameOrder = ?, phone = ?, deliveryLocation = ?, totalMoney = ?, paymentStatus = 'Pending' WHERE orderID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, nameOrder);
+            ps.setString(2, phone);
+            ps.setString(3, deliveryLocation);
+            ps.setDouble(4, totalMoney);
+            ps.setInt(5, orderID);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void confirmOrder(int orderID, String paymentMethod, String status) {
+        String sql = "UPDATE Orders SET paymentMethod = ?, paymentStatus = ? WHERE orderID = ?";
+        try {
+            // connection phải được khởi tạo!
+            connection = getConnection(); // Nếu bạn dùng JDBC thuần
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, paymentMethod);
+            ps.setString(2, status);
+            ps.setInt(3, orderID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOrderAfterPayment(Orders order) {
+        String sql = "UPDATE Orders SET nameOrder = ?, phone = ?, deliveryLocation = ?, "
+                + "totalMoney = ?, paymentType = ?, paymentStatus = ?, orderConfirmed = ?, "
+                + "orderDate = ?, deliveryStatus = ? WHERE orderID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, order.getNameOrder());
+            ps.setString(2, order.getPhone());
+            ps.setString(3, order.getDeliveryLocation());
+            ps.setDouble(4, order.getTotalMoney());
+            ps.setString(5, order.getPaymentType());
+            ps.setString(6, order.getPaymentStatus());
+            ps.setBoolean(7, order.isOrderConfirmed());
+            ps.setDate(8, order.getOrderDate());
+            ps.setString(9, order.getDeliveryStatus());
+            ps.setInt(10, order.getOrderID());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addOrderDetails(int orderId, List<gioHang> cart) throws SQLException {
+        String sql = "INSERT INTO OrderDetail (order_id, product_id, quantity, price, color) VALUES (?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            for (gioHang item : cart) {
+                ps.setInt(1, orderId);
+                ps.setInt(2, item.getProductID());
+                ps.setInt(3, item.getQuantity());
+                ps.setDouble(4, item.getPrice());
+                ps.setString(5, item.getColor());
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Thêm method này vào class OrderDAO của bạn
+    public int createNewOrder(int userID) {
+        String sql = "INSERT INTO orders (userID, orderDate, orderConfirmed, paymentStatus, deliveryStatus) VALUES (?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, userID);
+            ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
+            ps.setBoolean(3, false);
+            ps.setString(4, "Pending");
+            ps.setString(5, "Pending");
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return 0;
     }
 
 //******************************************************************************** 
@@ -795,4 +972,5 @@ public class OrderDAO extends DBContext {
         dao.updateAdminOrderDetailsByID(2, 4, "Xanh");
 //        System.out.println(dao.findOderDetailByID(1).toString());
     }
+
 }
