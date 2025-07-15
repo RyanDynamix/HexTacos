@@ -116,8 +116,6 @@
                                 </form>
                             </div>
                         </li>
-                        
-                        <%@ include file="includes/notification-dropdown.jsp" %>
 
                         <li class="d-none d-sm-inline-block">
                             <a class="nav-link" data-bs-toggle="offcanvas" href="#theme-settings-offcanvas">
@@ -246,14 +244,9 @@
                                         <a href="orders">Đơn đặt hàng</a>
                                     </li>
                                     <li>
-                                        <a href="customers">Tài khoản</a>
+                                        <a href="customers">Khách hàng</a>
                                     </li>
-                                    <li>
-                                        <a href="adminDiscount">Mã giảm giá</a>
                                     </li>
-                                    <li>
-                                    <a href="notifications">Thông báo</a>
-                                </li>
                                 </ul>
                             </div>
                         </li>
@@ -406,7 +399,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                <script>document.write(new Date().getFullYear())</script> 
+                                <script>document.write(new Date().getFullYear())</script> © Kleqing - kleqing.github.io
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-md-block">
@@ -934,8 +927,6 @@
 
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
-        
-        <%@ include file="includes/notification-js.jsp" %>
 
     </body>
 
